@@ -1,8 +1,12 @@
-# arXiv Search MCP
+# arXiv Semantic Search MCP
 
-A lightweight [Model Context Protocol](https://modelcontextprotocol.io/) server that lets AI assistants query the arXiv API. It exposes a simple set of functions for searching papers, retrieving metadata and downloading PDFs – all accessible through the MCP function-calling interface.
+A powerful semantic search engine for arXiv papers, built on the [Model Context Protocol](https://modelcontextprotocol.io/). This server enables AI assistants to perform intelligent, meaning-based searches across millions of academic papers, going beyond simple keyword matching.
 
-Semantic search capability based on [ArxivSearch](https://hub.arxiv-search.cn).
+Key Features:
+* Semantic search powered by [ArxivSearch](https://hub.arxiv-search.cn) - find papers based on meaning, not just keywords
+* Full arXiv API integration for comprehensive paper metadata and PDF access
+* MCP-compliant interface for seamless AI assistant integration
+* Advanced query construction for precise filtering
 
 ## Requirements
 
@@ -51,15 +55,22 @@ Below is an example configuration for an MCP client that launches the server via
 
 ## Available Functions
 
-| Function              | Description                                   |
-| --------------------- | --------------------------------------------- |
-| `search_papers`       | Search arXiv with flexible query syntax       |
-| `get_paper_details`   | Fetch complete metadata for a given paper     |
-| `build_advanced_query`| Construct complex multi-field search queries  |
-| `get_arxiv_categories`| List all available arXiv subject categories   |
+| Function              | Description                                                                |
+| --------------------- | -------------------------------------------------------------------------- |
+| `search_papers`       | Perform semantic and keyword-based searches across arXiv papers            |
+| `get_paper_details`   | Fetch complete metadata for a given paper                                  |
+| `build_advanced_query`| Construct complex multi-field search queries with semantic understanding   |
+| `get_arxiv_categories`| List all available arXiv subject categories                                |
+
+### Search Capabilities
+
+The semantic search functionality allows you to:
+* Find papers based on natural language descriptions
+* Discover related papers through semantic similarity
+* Combine semantic search with traditional filters (date, category, author)
+* Get contextually relevant results even with imperfect keyword matches
 
 See `src/` for implementation details.
-
 
 ## License
 
