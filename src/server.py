@@ -212,7 +212,7 @@ async def search_keyword(
     title: Optional[str] = None,
     author: Optional[str] = None,
     abstract: Optional[str] = None,
-    category: Optional[str] = None,
+    categories: Optional[List[str]] = None,
     start_date: Optional[str] = None,
     end_date: Optional[str] = None,
     all_fields: Optional[str] = None,
@@ -221,7 +221,7 @@ async def search_keyword(
     Searches for papers on the public arXiv API using structured keyword queries.
     
     Use this tool to find scientific papers on arXiv by specifying various search criteria.
-    At least one search criterion (title, author, abstract, category, or all_fields) must be provided.
+    At least one search criterion (title, author, abstract, categories, or all_fields) must be provided.
     
     Note: Keyword queries often return empty results if the terms are too specific or uncommon.
     For more natural language queries and better concept understanding, consider using search_semantic
@@ -235,7 +235,7 @@ async def search_keyword(
         title (str, optional): Search for papers with this text in the title (use quotes for exact phrases)
         author (str, optional): Search for papers by this author name (surname or full name)
         abstract (str, optional): Search for papers with this text in the abstract
-        category (str, optional): Filter by arXiv category code (e.g., "cs.AI", "physics.optics")
+        categories (List[str], optional): Filter by arXiv category codes (e.g., ["cs.AI", "physics.optics"])
         start_date (str, optional): Filter papers submitted on or after this date (format: YYYY-MM-DD)
         end_date (str, optional): Filter papers submitted on or before this date (format: YYYY-MM-DD)
         all_fields (str, optional): Search across all fields (title, abstract, author, comments)
@@ -245,9 +245,11 @@ async def search_keyword(
     
     Examples:
         - Search for recent machine learning papers:
-          search_keyword(category="cs.LG", page_size=5)
+          search_keyword(categories=["cs.LG"], page_size=5)
         - Search for papers by a specific author on quantum computing:
           search_keyword(author="Feynman", abstract="quantum computing", page_size=10)
+        - Search for papers in multiple categories:
+          search_keyword(categories=["cs.AI", "cs.LG"], all_fields="transformer")
         - Search for papers from 2023 with pagination:
           search_keyword(all_fields="transformers", start_date="2023-01-01", end_date="2023-12-31", page=2)
     """
@@ -262,8 +264,12 @@ async def search_keyword(
         query_parts.append(f'au:"{author}"')
     if abstract:
         query_parts.append(f'abs:"{abstract}"')
-    if category:
-        query_parts.append(f'cat:{category}')
+    if categories:
+        # Handle multiple categories using OR operator
+        category_query = " OR ".join(f"cat:{cat}" for cat in categories)
+        if len(categories) > 1:
+            category_query = f"({category_query})"
+        query_parts.append(category_query)
     if all_fields:
         query_parts.append(f'all:{all_fields}')
 
