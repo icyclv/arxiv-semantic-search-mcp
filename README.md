@@ -10,7 +10,7 @@ Key Features:
 
 ## Requirements
 
-* Python 3.12+
+* Python 3.12 or higher
 * [uv](https://docs.astral.sh/uv/) package manager (dependency resolver & runner)
 
 ## Getting Started
@@ -35,7 +35,7 @@ uv run main.py
 
 ## Editor / Client Configuration
 
-Below is an example configuration for an MCP client that launches the server via **uv** (e.g. Claude Desktop, VS Code MCP extension, etc.):
+To use this MCP server with your AI assistant tools (e.g. Claude Desktop, VS Code MCP extension), add the following configuration:
 
 ```json
 {
@@ -44,7 +44,7 @@ Below is an example configuration for an MCP client that launches the server via
       "command": "uv",
       "args": [
         "--directory",
-        "/path/to/arxiv-semantic-search-mcp",
+        "/path/to/arxiv-semantic-search-mcp",  // Replace with actual path
         "run",
         "main.py"
       ]
@@ -52,6 +52,8 @@ Below is an example configuration for an MCP client that launches the server via
   }
 }
 ```
+
+Note: Replace `/path/to/arxiv-semantic-search-mcp` with the actual path where you cloned the repository.
 
 ## Available Functions
 
